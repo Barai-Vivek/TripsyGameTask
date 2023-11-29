@@ -13,11 +13,11 @@ const Footer = () => {
 
 const styles = StyleSheet.create({
   bottomView: {
-    height: 56,
+    maxWidth: 110,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   btnText: {
     fontSize: 16,

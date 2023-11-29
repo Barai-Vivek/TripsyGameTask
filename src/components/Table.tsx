@@ -1,28 +1,21 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {View, Image, Text, StyleSheet, ImageSourcePropType} from 'react-native';
 import CardDeck from './CardDeck';
 import {CARD_HEIGHT, SMALL_CARD_HEIGHT, SMALL_CARD_WIDTH} from '../Constants';
 import {Images} from '../asset';
 
 const Table = () => {
   return (
-    <View style={[styles.centerView]}>
+    <View style={styles.centerView}>
       <View style={styles.table}>
         <Text style={styles.textStyle}>Opponent</Text>
         <View style={styles.opponentUserDeck}>
           <View style={styles.opponentUserLeftArea}>
-            <View
-              style={[styles.cardContainer, {transform: [{rotate: '90deg'}]}]}>
-              <Image source={Images.icDeck} style={styles.cardImage} />
-            </View>
-            <View style={styles.cardContainer}>
-              <Image source={Images.icDeck} style={styles.cardImage} />
-            </View>
+            {renderCard(Images.icDeck, -12, '90deg')}
+            {renderCard(Images.icCloseDeck)}
           </View>
           <View style={styles.opponentUserCenterArea}>
-            <View style={[styles.cardContainer, {marginLeft: 0}]}>
-              <Image source={Images.icDeck} style={styles.cardImage} />
-            </View>
+            {renderCard(Images.icDeck2, 0)}
           </View>
           <View style={styles.opponentUserRightArea}>
             <View style={styles.showHere}>
@@ -38,19 +31,34 @@ const Table = () => {
   );
 };
 
+const renderCard = (
+  image: ImageSourcePropType,
+  marginLeft = -12,
+  rotate = '180deg',
+) => (
+  <View style={[styles.cardContainer, {marginLeft, transform: [{rotate}]}]}>
+    <Image source={image} style={styles.cardImage} />
+  </View>
+);
+
 const styles = StyleSheet.create({
   centerView: {
-    flex: 5,
+    top: 20,
+    bottom: 20,
+    start: 20,
+    right: 20,
+    width: '90%',
+    flex: 1,
     backgroundColor: 'green',
     borderRadius: 150,
     borderWidth: 12,
     borderColor: '#093624',
-    marginHorizontal: 40,
     shadowColor: '#00FF00',
     elevation: 20,
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.5,
     shadowRadius: 20,
+    position: 'absolute',
   },
   textStyle: {
     fontSize: 16,
@@ -110,22 +118,14 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     overflow: 'hidden',
     backgroundColor: '#fff',
-    marginLeft: -12, // Adjust as needed for the overlap effect
     borderWidth: 0.4,
     elevation: 3,
     padding: 2,
   },
   cardImage: {
     width: '100%',
-    height: '100%', // Adjust as needed
+    height: '100%',
     resizeMode: 'cover',
-  },
-  openCard: {
-    width: SMALL_CARD_WIDTH,
-    height: SMALL_CARD_HEIGHT,
-    padding: 2,
-    backgroundColor: 'white',
-    borderRadius: 6,
   },
 });
 

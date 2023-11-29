@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Text, FlatList, StyleSheet} from 'react-native';
+import {View, Image, FlatList, StyleSheet} from 'react-native';
 import {Images} from '../asset';
 import {CARD_WIDTH} from '../Constants';
 
@@ -38,7 +38,7 @@ const CardDeck: React.FC = () => {
     );
   };
 
-  return (
+  return cardData.length ? (
     <FlatList
       style={styles.container}
       data={cardData}
@@ -48,7 +48,7 @@ const CardDeck: React.FC = () => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.flatListContainer}
     />
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20, // Adjust padding as needed
   },
   flatListContainer: {
-    paddingStart: 20, // Adjust padding as needed
+    paddingHorizontal: 20, // Adjust padding as needed
   },
   cardContainer: {
     width: CARD_WIDTH,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     backgroundColor: '#fff',
-    marginLeft: -32, // Adjust as needed for the overlap effect
+    marginStart: -32, // Adjust as needed for the overlap effect
     borderWidth: 0.4,
     elevation: 3,
     padding: 2,

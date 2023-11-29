@@ -12,7 +12,9 @@
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.72.7",
-    "react-native-exit-app": "^2.0.0"
+    "react-native-exit-app": "^2.0.0",
+    "react-native-progress-wheel": "^2.1.0",
+    "react-native-svg-charts": "^5.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
