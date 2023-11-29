@@ -1,7 +1,15 @@
 import React from 'react';
-import {View, Image, FlatList, StyleSheet} from 'react-native';
+import {
+  View,
+  Image,
+  FlatList,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import {Images} from '../asset';
-import {CARD_WIDTH} from '../Constants';
+import {CARD_WIDTH, moderateScale} from '../Constants';
+import {CardSelectionProps} from './types';
 
 interface Card {
   id: string;
@@ -16,25 +24,45 @@ const cardData: Card[] = [
   {id: '4', imageUrl: Images.icHeart9, title: 'Card 4'},
   {id: '5', imageUrl: Images.icClub2, title: 'Card 5'},
   {id: '6', imageUrl: Images.icSpadesQueen, title: 'Card 6'},
-  {id: '7', imageUrl: Images.icJoker, title: 'Card 7'},
-  {id: '8', imageUrl: Images.icClub2, title: 'Card 8'},
-  {id: '9', imageUrl: Images.icClub2, title: 'Card 9'},
-  {id: '10', imageUrl: Images.icClub2, title: 'Card 10'},
-  {id: '11', imageUrl: Images.icClub2, title: 'Card 11'},
-  {id: '12', imageUrl: Images.icClub2, title: 'Card 12'},
-  {id: '13', imageUrl: Images.icClub2, title: 'Card 13'},
+  {id: '7', imageUrl: Images.icClub7, title: 'Card 7'},
+  {id: '8', imageUrl: Images.icDiamond5, title: 'Card 8'},
+  {id: '9', imageUrl: Images.icDiamondA, title: 'Card 9'},
+  {id: '10', imageUrl: Images.icDiamondQ, title: 'Card 10'},
+  {id: '11', imageUrl: Images.icHeart6, title: 'Card 11'},
+  {id: '12', imageUrl: Images.icHeartJ, title: 'Card 12'},
+  {id: '13', imageUrl: Images.icSpades2, title: 'Card 13'},
 ];
 
-const CardDeck: React.FC = () => {
+const CardDeck = ({onSelect, passedData}: CardSelectionProps) => {
   const keyExtractor = (_: any, index: number) => {
     return `key${index}`;
   };
 
-  const renderCard = ({item}: {item: Card; index: any}) => {
+  const handleCardPress = (cardId: string) => {
+    onSelect(passedData === cardId ? undefined : cardId);
+  };
+
+  const renderCard = ({item, index}: {item: Card; index: any}) => {
+    const isSelected = passedData === item.id;
+    const isLastCard = index === cardData.length - 1;
+    const cardStyle = [
+      styles.cardContainer,
+      isLastCard && Platform.OS === 'android' ? styles.lastCardAndroid : null,
+    ];
+
     return (
-      <View style={styles.cardContainer}>
+      <TouchableOpacity
+        style={cardStyle}
+        onPress={() => handleCardPress(item.id)}
+        activeOpacity={0.7}>
         <Image source={item.imageUrl} style={styles.cardImage} />
-      </View>
+        {(isSelected && (
+          <View style={styles.overlay}>
+            {/* add additional content for the overlay if needed */}
+          </View>
+        )) ||
+          null}
+      </TouchableOpacity>
     );
   };
 
@@ -54,22 +82,34 @@ const CardDeck: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20, // Adjust padding as needed
+    paddingHorizontal: moderateScale(20),
   },
   flatListContainer: {
-    paddingHorizontal: 20, // Adjust padding as needed
+    paddingHorizontal: moderateScale(20),
   },
   cardContainer: {
-    width: CARD_WIDTH,
+    width: moderateScale(CARD_WIDTH),
     height: '100%',
-    borderRadius: 10,
+    borderRadius: 4,
     overflow: 'hidden',
-    marginStart: -32, // Adjust as needed for the overlap effect
+    marginRight: moderateScale(-32),
+    elevation: 5,
+    zIndex: 1,
+  },
+  lastCardAndroid: {
+    marginRight: moderateScale(-20),
   },
   cardImage: {
     width: '100%',
-    height: '100%', // Adjust as needed
+    height: '100%',
     resizeMode: 'cover',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 4,
+    paddingEnd: moderateScale(-2),
+    paddingBottom: moderateScale(-2),
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
 

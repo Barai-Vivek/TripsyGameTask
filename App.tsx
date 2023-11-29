@@ -10,28 +10,41 @@ import {Footer, Header, Table} from './src/components';
 import {CircularProgress} from './src/components/CircularProgress';
 import {Images} from './src/asset';
 import UserProfile from './src/components/UserProfile';
+import {screenHeight} from './src';
 
 const App = () => {
-  const initialTime = 10;
+  const initialTime = 60;
+  const [selectedData, setSelectedData] = useState('');
   const [seconds, setSeconds] = useState(initialTime);
   const [myTimer, setMyTimer] = useState(true);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setSeconds(prevSeconds =>
-        prevSeconds > 0 ? prevSeconds - 1 : initialTime,
-      );
-    }, 1000);
+  const marginBottomPercentage = 5; // Adjust as needed
 
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
+  const calculateMarginBottom = () => {
+    return (screenHeight * marginBottomPercentage) / 100;
+  };
 
-  useEffect(() => {
-    if (seconds === 0) {
-      setMyTimer(!myTimer);
-    }
-  }, [seconds]);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setSeconds(prevSeconds =>
+  //       prevSeconds > 0 ? prevSeconds - 1 : initialTime,
+  //     );
+  //   }, 1000);
+
+  //   // Cleanup function to clear the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (seconds === 0) {
+  //     setMyTimer(!myTimer);
+  //   }
+  // }, [seconds]);
+
+  const handleSelection = (item?: string) => {
+    // Update the state or perform any other action with the selected data
+    setSelectedData(item ?? '');
+  };
 
   return (
     <SafeAreaView style={styles.mainContainer}>
@@ -39,7 +52,7 @@ const App = () => {
       <ImageBackground source={Images.icBg} style={styles.backgroundImage}>
         <Header />
         <View style={styles.tableAdjustment}>
-          <Table />
+          <Table onSelect={handleSelection} passedData={selectedData} />
           {!myTimer && seconds > 0 ? (
             <View style={styles.opponentProgressStyle}>
               <CircularProgress initialTime={initialTime} seconds={seconds} />
@@ -59,8 +72,11 @@ const App = () => {
             </View>
           )}
         </View>
-        <View style={styles.footer}>
-          <Footer />
+        <View style={[styles.footer, {marginBottom: calculateMarginBottom()}]}>
+          <Footer
+            showDiscardBtn={selectedData.length > 0}
+            discardSelection={item => setSelectedData(item ?? '')}
+          />
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -74,7 +90,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    resizeMode: 'repeat', // or 'stretch'
   },
   progressTxt: {
     color: 'white',
@@ -97,7 +112,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'flex-end',
   },
-  footer: {alignItems: 'flex-end', marginBottom: 20},
+  footer: {
+    alignItems: 'flex-end',
+    marginBottom: screenHeight - screenHeight * 0.9,
+  },
 });
 
 export default App;

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import RNExitApp from 'react-native-exit-app';
 import {Images} from '../asset';
+import {moderateScale} from '../Constants';
 
 const Header = () => {
   return (
@@ -29,28 +30,28 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   topView: {
-    height: 40,
+    height: moderateScale(40),
     flexDirection: 'row',
-    paddingHorizontal: 10,
+    paddingHorizontal: moderateScale(10),
     alignItems: 'center',
     borderColor: 'red',
     borderWidth: 1,
-    borderRadius: 20,
-    marginTop: 10,
-    marginHorizontal: 20,
+    borderRadius: moderateScale(20),
+    marginTop: moderateScale(10),
+    marginHorizontal: moderateScale(20),
   },
   titleTextStyle: {
-    fontSize: 20,
+    fontSize: moderateScale(18),
     color: 'white',
-    marginStart: 10,
+    marginStart: moderateScale(10),
     flex: 1,
     textAlign: 'center',
   },
   image: {
-    width: 24,
-    height: 24,
+    width: moderateScale(24),
+    height: moderateScale(24),
     tintColor: 'red',
-    resizeMode: 'contain', // You can use 'contain', 'stretch', etc. based on your preference
+    resizeMode: 'contain',
   },
 });
 
