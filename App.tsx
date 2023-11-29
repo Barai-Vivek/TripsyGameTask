@@ -1,7 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
+import {
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 import {Footer, Header, Table} from './src/components';
 import {CircularProgress} from './src/components/CircularProgress';
+import {Images} from './src/asset';
+import UserProfile from './src/components/UserProfile';
 
 const App = () => {
   const initialTime = 10;
@@ -21,7 +29,6 @@ const App = () => {
 
   useEffect(() => {
     if (seconds === 0) {
-      console.log({seconds});
       setMyTimer(!myTimer);
     }
   }, [seconds]);
@@ -29,23 +36,33 @@ const App = () => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <StatusBar barStyle={'light-content'} backgroundColor={'black'} />
-      <Header />
-      <View style={styles.tableAdjustment}>
-        <Table />
-        {!myTimer && seconds > 0 ? (
-          <View style={styles.opponentProgressStyle}>
-            <CircularProgress initialTime={initialTime} seconds={seconds} />
-          </View>
-        ) : null}
-        {myTimer && seconds > 0 ? (
-          <View style={styles.progressStyle}>
-            <CircularProgress initialTime={initialTime} seconds={seconds} />
-          </View>
-        ) : null}
-      </View>
-      <View style={styles.footer}>
-        <Footer />
-      </View>
+      <ImageBackground source={Images.icBg} style={styles.backgroundImage}>
+        <Header />
+        <View style={styles.tableAdjustment}>
+          <Table />
+          {!myTimer && seconds > 0 ? (
+            <View style={styles.opponentProgressStyle}>
+              <CircularProgress initialTime={initialTime} seconds={seconds} />
+            </View>
+          ) : (
+            <View style={styles.opponentProgressStyle}>
+              <UserProfile />
+            </View>
+          )}
+          {myTimer ? (
+            <View style={styles.progressStyle}>
+              <CircularProgress initialTime={initialTime} seconds={seconds} />
+            </View>
+          ) : (
+            <View style={styles.progressStyle}>
+              <UserProfile />
+            </View>
+          )}
+        </View>
+        <View style={styles.footer}>
+          <Footer />
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -55,6 +72,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'repeat', // or 'stretch'
+  },
   progressTxt: {
     color: 'white',
     fontSize: 12,
@@ -62,6 +83,7 @@ const styles = StyleSheet.create({
   tableAdjustment: {
     flex: 1,
     marginTop: 10,
+    marginBottom: -40,
   },
   opponentProgressStyle: {
     flex: 1,
@@ -75,7 +97,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'flex-end',
   },
-  footer: {alignItems: 'flex-end'},
+  footer: {alignItems: 'flex-end', marginBottom: 20},
 });
 
 export default App;

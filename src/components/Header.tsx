@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     marginTop: 10,
+    marginHorizontal: 20,
   },
   titleTextStyle: {
     fontSize: 20,

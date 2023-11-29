@@ -11,15 +11,15 @@ const Table = () => {
         <Text style={styles.textStyle}>Opponent</Text>
         <View style={styles.opponentUserDeck}>
           <View style={styles.opponentUserLeftArea}>
-            {renderCard(Images.icDeck, -12, '90deg')}
+            {renderCard(Images.icClub2, -12, '90deg')}
             {renderCard(Images.icCloseDeck)}
           </View>
           <View style={styles.opponentUserCenterArea}>
-            {renderCard(Images.icDeck2, 0)}
+            {renderCard(Images.icJoker, 0)}
           </View>
           <View style={styles.opponentUserRightArea}>
             <View style={styles.showHere}>
-              <Text style={styles.showHereTxt}>Show here</Text>
+              <Text style={styles.showHereTxt}>SHOW HERE</Text>
             </View>
           </View>
         </View>
@@ -34,7 +34,7 @@ const Table = () => {
 const renderCard = (
   image: ImageSourcePropType,
   marginLeft = -12,
-  rotate = '180deg',
+  rotate = '0deg',
 ) => (
   <View style={[styles.cardContainer, {marginLeft, transform: [{rotate}]}]}>
     <Image source={image} style={styles.cardImage} />
@@ -44,7 +44,7 @@ const renderCard = (
 const styles = StyleSheet.create({
   centerView: {
     top: 20,
-    bottom: 20,
+    bottom: 0,
     start: 20,
     right: 20,
     width: '90%',
@@ -100,9 +100,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   showHereTxt: {
-    fontSize: 10,
+    fontSize: 9,
     color: 'black',
     margin: 4,
+    textAlign: 'center',
   },
   showHere: {
     justifyContent: 'center',
@@ -111,16 +112,14 @@ const styles = StyleSheet.create({
     height: SMALL_CARD_HEIGHT,
     borderColor: 'black',
     borderWidth: 0.7,
+    borderRadius: 4,
   },
   cardContainer: {
     width: SMALL_CARD_WIDTH,
     height: SMALL_CARD_HEIGHT,
     borderRadius: 6,
     overflow: 'hidden',
-    backgroundColor: '#fff',
-    borderWidth: 0.4,
     elevation: 3,
-    padding: 2,
   },
   cardImage: {
     width: '100%',

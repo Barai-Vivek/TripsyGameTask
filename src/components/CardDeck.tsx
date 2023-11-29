@@ -10,19 +10,19 @@ interface Card {
 }
 
 const cardData: Card[] = [
-  {id: '1', imageUrl: Images.icDeck, title: 'Card 1'},
-  {id: '2', imageUrl: Images.icDeck, title: 'Card 2'},
-  {id: '3', imageUrl: Images.icDeck, title: 'Card 3'},
-  {id: '4', imageUrl: Images.icDeck, title: 'Card 4'},
-  {id: '5', imageUrl: Images.icDeck, title: 'Card 5'},
-  {id: '6', imageUrl: Images.icDeck, title: 'Card 6'},
-  {id: '7', imageUrl: Images.icDeck, title: 'Card 7'},
-  {id: '8', imageUrl: Images.icDeck, title: 'Card 8'},
-  {id: '9', imageUrl: Images.icDeck, title: 'Card 9'},
-  {id: '10', imageUrl: Images.icDeck, title: 'Card 10'},
-  {id: '11', imageUrl: Images.icDeck, title: 'Card 11'},
-  {id: '12', imageUrl: Images.icDeck, title: 'Card 12'},
-  {id: '13', imageUrl: Images.icDeck, title: 'Card 13'},
+  {id: '1', imageUrl: Images.icClub2, title: 'Card 1'},
+  {id: '2', imageUrl: Images.icDiamond2, title: 'Card 2'},
+  {id: '3', imageUrl: Images.icClubKing, title: 'Card 3'},
+  {id: '4', imageUrl: Images.icHeart9, title: 'Card 4'},
+  {id: '5', imageUrl: Images.icClub2, title: 'Card 5'},
+  {id: '6', imageUrl: Images.icSpadesQueen, title: 'Card 6'},
+  {id: '7', imageUrl: Images.icJoker, title: 'Card 7'},
+  {id: '8', imageUrl: Images.icClub2, title: 'Card 8'},
+  {id: '9', imageUrl: Images.icClub2, title: 'Card 9'},
+  {id: '10', imageUrl: Images.icClub2, title: 'Card 10'},
+  {id: '11', imageUrl: Images.icClub2, title: 'Card 11'},
+  {id: '12', imageUrl: Images.icClub2, title: 'Card 12'},
+  {id: '13', imageUrl: Images.icClub2, title: 'Card 13'},
 ];
 
 const CardDeck: React.FC = () => {
@@ -64,11 +64,7 @@ const styles = StyleSheet.create({
     height: '100%',
     borderRadius: 10,
     overflow: 'hidden',
-    backgroundColor: '#fff',
     marginStart: -32, // Adjust as needed for the overlap effect
-    borderWidth: 0.4,
-    elevation: 3,
-    padding: 2,
   },
   cardImage: {
     width: '100%',

@@ -6,8 +6,12 @@ const CircularProgress = (props: {initialTime: any; seconds: any}) => {
   const initialTime = props.initialTime;
   const seconds = props.seconds;
 
+  console.log({seconds});
+
   // Calculate progress percentage
   const progress = ((initialTime - seconds) / initialTime) * 100;
+
+  console.log({seconds, progress});
 
   return (
     <View style={styles.container}>
@@ -16,10 +20,10 @@ const CircularProgress = (props: {initialTime: any; seconds: any}) => {
           size={46}
           width={6}
           showProgressLabel={false}
-          rotation={'-90deg'}
-          backgroundColor="green"
+          backgroundColor="#09362408"
           color={'yellow'}
           progress={progress}
+          delay={0}
         />
       </View>
       <Text style={styles.progressText}>{seconds}</Text>
@@ -36,8 +40,13 @@ const styles = StyleSheet.create({
   },
   progressStyle: {
     position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 23,
   },
-  progressText: {color: 'white', fontSize: 12},
+  progressText: {
+    color: 'white',
+    fontSize: 12,
+  },
 });
 
 export {CircularProgress};
