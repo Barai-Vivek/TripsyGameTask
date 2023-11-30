@@ -6,11 +6,15 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Footer, Header, Table} from './src/components';
-import {CircularProgressBar} from './src/components/CircularProgressBar';
-import {Images} from './src/asset';
-import UserProfile from './src/components/UserProfile';
-import {screenHeight} from './src';
+import {
+  screenHeight,
+  CircularProgressBar,
+  Images,
+  Header,
+  Table,
+  Footer,
+  UserProfile,
+} from './src';
 
 const App = () => {
   const initialTime = 60;
@@ -19,10 +23,6 @@ const App = () => {
   const [myTimer, setMyTimer] = useState(true);
 
   const marginBottomPercentage = 5; // Adjust as needed
-
-  const calculateMarginBottom = () => {
-    return (screenHeight * marginBottomPercentage) / 100;
-  };
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -44,14 +44,17 @@ const App = () => {
     }
   }, [seconds, myTimer]);
 
-  const handleSelection = (item?: string) => {
+  const handleSelection = item => {
     // Update the state or perform any other action with the selected data
-    setSelectedData(item ?? '');
+    setSelectedData(item || '');
   };
+
+  const calculateMarginBottom = () =>
+    (screenHeight * marginBottomPercentage) / 100;
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <StatusBar barStyle={'light-content'} backgroundColor={'black'} />
+      <StatusBar barStyle="light-content" backgroundColor="black" />
       <ImageBackground source={Images.icBg} style={styles.backgroundImage}>
         <Header />
         <View style={styles.tableAdjustment}>
@@ -84,7 +87,7 @@ const App = () => {
         <View style={[styles.footer, {marginBottom: calculateMarginBottom()}]}>
           <Footer
             showDiscardBtn={selectedData.length > 0}
-            discardSelection={item => setSelectedData(item ?? '')}
+            discardSelection={item => setSelectedData(item || '')}
             myTurn={myTimer}
           />
         </View>
@@ -100,10 +103,6 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-  },
-  progressTxt: {
-    color: 'white',
-    fontSize: 12,
   },
   tableAdjustment: {
     flex: 1,

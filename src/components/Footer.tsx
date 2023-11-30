@@ -4,18 +4,23 @@ import {moderateScale} from '../Constants';
 import {FooterProps} from './types';
 
 const Footer = ({showDiscardBtn, discardSelection, myTurn}: FooterProps) => {
+  if (!myTurn) {
+    return <View style={styles.bottomView} />;
+  }
+
   const textToShow = showDiscardBtn ? 'Discard' : 'Sort';
+
+  const handlePress = () => {
+    if (textToShow === 'Discard') {
+      discardSelection('');
+    }
+  };
 
   return (
     <View style={styles.bottomView}>
-      {(myTurn && (
-        <TouchableOpacity
-          style={styles.btnView}
-          onPress={() => textToShow === 'Discard' && discardSelection('')}>
-          <Text style={styles.btnText}>{textToShow}</Text>
-        </TouchableOpacity>
-      )) ||
-        null}
+      <TouchableOpacity style={styles.btnView} onPress={handlePress}>
+        <Text style={styles.btnText}>{textToShow}</Text>
+      </TouchableOpacity>
     </View>
   );
 };

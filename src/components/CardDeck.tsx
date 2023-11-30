@@ -41,8 +41,8 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
       Animated.spring(scaleValue, {
         toValue: 0.9,
         useNativeDriver: true,
-        bounciness: 8, // Adjust bounciness as needed
-        speed: 8, // Adjust speed as needed (lower value for slower animation)
+        bounciness: 8,
+        speed: 8,
       }).start();
     };
 
@@ -50,8 +50,8 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
       Animated.spring(scaleValue, {
         toValue: 1,
         useNativeDriver: true,
-        bounciness: 8, // Adjust bounciness as needed
-        speed: 8, // Adjust speed as needed (lower value for slower animation)
+        bounciness: 8,
+        speed: 8,
       }).start();
     };
 
@@ -65,12 +65,7 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
         onPressOut={handleCardPressOut}>
         <Animated.View style={animatedStyle}>
           <Image source={item.imageUrl} style={styles.cardImage} />
-          {(isSelected && (
-            <View style={styles.overlay}>
-              {/* add additional content for the overlay if needed */}
-            </View>
-          )) ||
-            null}
+          {(isSelected && <View style={styles.overlay} />) || null}
         </Animated.View>
       </TouchableOpacity>
     );
@@ -100,7 +95,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: moderateScale(CARD_WIDTH),
     height: '100%',
-    borderRadius: 4,
+    borderRadius: moderateScale(4),
     overflow: 'hidden',
     marginRight: moderateScale(-32),
     elevation: 5,
@@ -116,7 +111,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    borderRadius: 4,
+    borderRadius: moderateScale(4),
     paddingEnd: moderateScale(-2),
     paddingBottom: moderateScale(-2),
     backgroundColor: 'rgba(0, 0, 0, 0.5)',

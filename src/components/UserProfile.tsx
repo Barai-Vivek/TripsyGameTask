@@ -24,9 +24,9 @@ const styles = StyleSheet.create({
     height: moderateScale(46),
   },
   roundedImage: {
-    width: moderateScale(46),
-    height: moderateScale(46),
-    borderRadius: 23,
+    width: '100%',
+    height: '100%',
+    borderRadius: moderateScale(23),
     resizeMode: 'cover',
   },
   overlayContainer: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     paddingVertical: moderateScale(3),
     paddingHorizontal: moderateScale(6),
-    borderRadius: 3,
+    borderRadius: moderateScale(3),
   },
   overlayText: {
     color: 'white',
@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserProfile;
+export {UserProfile};

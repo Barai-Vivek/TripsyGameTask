@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {moderateScale} from '../Constants';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
-const CircularProgressBar = (props: {initialTime: any; seconds: any}) => {
-  const initialTime = props.initialTime;
-  const seconds = props.seconds;
-
+const CircularProgressBar = ({
+  initialTime,
+  seconds,
+}: {
+  initialTime: number;
+  seconds: number;
+}) => {
   // Calculate progress percentage
-  const progress = ((initialTime - seconds) / initialTime) * 100;
+  const progress = useMemo(
+    () => ((initialTime - seconds) / initialTime) * 100,
+    [initialTime, seconds],
+  );
+
+  const activeStrokeColor = useMemo(
+    () => (seconds > 5 ? 'yellow' : 'tomato'),
+    [seconds],
+  );
 
   return (
     <View style={styles.container}>
@@ -17,7 +28,7 @@ const CircularProgressBar = (props: {initialTime: any; seconds: any}) => {
           radius={moderateScale(23)}
           value={progress}
           progressValueStyle={styles.progressValueText}
-          activeStrokeColor={seconds > 5 ? 'yellow' : 'tomato'}
+          activeStrokeColor={activeStrokeColor}
           inActiveStrokeOpacity={0.2}
           duration={0}
         />

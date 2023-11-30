@@ -13,14 +13,13 @@ import {Images} from '../asset';
 import {moderateScale} from '../Constants';
 
 const Header = () => {
+  const handleExitPress = () => {
+    Platform.OS === 'android' ? BackHandler.exitApp() : RNExitApp.exitApp();
+  };
+
   return (
     <View style={styles.topView}>
-      <TouchableOpacity
-        onPress={() => {
-          Platform.OS === 'android'
-            ? BackHandler.exitApp()
-            : RNExitApp.exitApp();
-        }}>
+      <TouchableOpacity onPress={handleExitPress}>
         <Image source={Images.icLeave} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.titleTextStyle}>Game play</Text>

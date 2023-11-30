@@ -3,3 +3,4 @@ export * from './Footer';
 export * from './Table';
 export * from './UserProfile';
 export * from './types';
+export * from './CircularProgressBar';

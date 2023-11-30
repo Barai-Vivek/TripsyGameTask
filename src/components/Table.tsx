@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet, ImageSourcePropType} from 'react-native';
+import {View, Text, StyleSheet, ImageSourcePropType, Image} from 'react-native';
 import CardDeck from './CardDeck';
 import {
   CARD_HEIGHT,
@@ -12,6 +12,16 @@ import {Images} from '../asset';
 import {CardSelectionProps} from './types';
 
 const Table = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
+  const renderCard = (
+    image: ImageSourcePropType,
+    marginLeft = moderateScale(-12),
+    rotate = '0deg',
+  ) => (
+    <View style={[styles.cardContainer, {marginLeft, transform: [{rotate}]}]}>
+      <Image source={image} style={styles.cardImage} />
+    </View>
+  );
+
   return (
     <View style={styles.centerView}>
       <View style={styles.table}>
@@ -40,16 +50,6 @@ const Table = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
     </View>
   );
 };
-
-const renderCard = (
-  image: ImageSourcePropType,
-  marginLeft = moderateScale(-12),
-  rotate = '0deg',
-) => (
-  <View style={[styles.cardContainer, {marginLeft, transform: [{rotate}]}]}>
-    <Image source={image} style={styles.cardImage} />
-  </View>
-);
 
 const styles = StyleSheet.create({
   centerView: {
