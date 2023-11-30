@@ -13,7 +13,7 @@ import UserProfile from './src/components/UserProfile';
 import {screenHeight} from './src';
 
 const App = () => {
-  const initialTime = 5;
+  const initialTime = 60;
   const [selectedData, setSelectedData] = useState('');
   const [seconds, setSeconds] = useState(initialTime);
   const [myTimer, setMyTimer] = useState(true);

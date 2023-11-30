@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     borderColor: '#093624',
     alignSelf: 'center',
     position: 'absolute',
-    zIndex: 0,
     elevation: 30,
     shadowColor: '#D1FFBD',
     shadowOpacity: 0.5,
