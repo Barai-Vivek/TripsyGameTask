@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   View,
   Image,
@@ -13,6 +13,23 @@ import {CARD_WIDTH, Card, cardData, moderateScale} from '../Constants';
 import {CardSelectionProps} from './types';
 
 const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
+  const animationValuesDrag = useRef(
+    cardData.map(() => new Animated.Value(0)),
+  ).current;
+
+  useEffect(() => {
+    Animated.stagger(
+      100,
+      animationValuesDrag.map(value =>
+        Animated.timing(value, {
+          toValue: 1,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+      ),
+    ).start();
+  }, [animationValuesDrag]);
+
   const keyExtractor = (_: any, index: number) => {
     return `key${index}`;
   };
@@ -37,6 +54,23 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
       transform: [{scale: scaleValue}],
     };
 
+    const animatedStyleDrag = {
+      transform: [
+        {
+          translateY: animationValuesDrag[index].interpolate({
+            inputRange: [0, 10],
+            outputRange: [moderateScale(-84), moderateScale(780)], // Adjust as needed for card distribution
+          }),
+        },
+        {
+          translateX: animationValuesDrag[index].interpolate({
+            inputRange: [0, 1],
+            outputRange: [index > 3 ? -50 : 0, 0], // Adjust as needed for card distribution
+          }),
+        },
+      ],
+    };
+
     const handleCardPressIn = () => {
       Animated.spring(scaleValue, {
         toValue: 0.9,
@@ -56,18 +90,20 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
     };
 
     return (
-      <TouchableOpacity
-        style={cardStyle}
-        disabled={!myTurn}
-        onPress={() => handleCardPress(item.id)}
-        activeOpacity={0.7}
-        onPressIn={handleCardPressIn}
-        onPressOut={handleCardPressOut}>
-        <Animated.View style={animatedStyle}>
-          <Image source={item.imageUrl} style={styles.cardImage} />
-          {(isSelected && <View style={styles.overlay} />) || null}
-        </Animated.View>
-      </TouchableOpacity>
+      <Animated.View style={animatedStyleDrag}>
+        <TouchableOpacity
+          style={cardStyle}
+          disabled={!myTurn}
+          onPress={() => handleCardPress(item.id)}
+          activeOpacity={0.7}
+          onPressIn={handleCardPressIn}
+          onPressOut={handleCardPressOut}>
+          <Animated.View style={animatedStyle}>
+            <Image source={item.imageUrl} style={styles.cardImage} />
+            {(isSelected && <View style={styles.overlay} />) || null}
+          </Animated.View>
+        </TouchableOpacity>
+      </Animated.View>
     );
   };
 

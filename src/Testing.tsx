@@ -1,31 +1,60 @@
-import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import CircularProgress from 'react-native-circular-progress-indicator';
+import React, {useRef, useEffect} from 'react';
+import {View, FlatList, Animated, StyleSheet, Text} from 'react-native';
+import {CARD_WIDTH, moderateScale} from '.';
 
 const Testing = () => {
-  const [progress, setProgress] = useState(0);
+  const data = Array.from({length: 10}).map((_, index) => ({
+    id: index.toString(),
+  }));
+
+  const animationValues = useRef(data.map(() => new Animated.Value(0))).current;
 
   useEffect(() => {
-    // Simulate progress update over time (0% to 100%)
-    const intervalId = setInterval(() => {
-      setProgress(prevProgress => (prevProgress < 1 ? prevProgress + 0.01 : 1));
-    }, 100);
-
-    return () => clearInterval(intervalId);
+    Animated.stagger(
+      100,
+      animationValues.map(value =>
+        Animated.timing(value, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ),
+    ).start();
   }, []);
+
+  const renderItem = ({index}) => {
+    const animatedStyle = {
+      transform: [
+        {
+          translateY: animationValues[index].interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 0], // Adjust as needed for card distribution
+          }),
+        },
+        {
+          translateX: animationValues[index].interpolate({
+            inputRange: [0, 1],
+            outputRange: [50, 0], // Adjust as needed for card distribution
+          }),
+        },
+      ],
+    };
+
+    return (
+      <Animated.View style={[styles.card, animatedStyle]}>
+        <Text>{`Card ${index + 1}`}</Text>
+      </Animated.View>
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <Text>{progress}</Text>
-      <CircularProgress
-        radius={40}
-        value={progress}
-        titleColor="#222dfd"
-        titleFontSize={20}
-        valueSuffix={'%'}
-        activeStrokeColor={'tomato'}
-        inActiveStrokeOpacity={0.2}
-        duration={0}
+      <FlatList
+        data={data}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+        horizontal
+        contentContainerStyle={styles.flatListContainer}
       />
     </View>
   );
@@ -34,9 +63,25 @@ const Testing = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  flatListContainer: {
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    width: moderateScale(CARD_WIDTH),
+    height: 120,
+    backgroundColor: 'lightblue',
+    marginHorizontal: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: moderateScale(4),
+    overflow: 'hidden',
+    marginRight: moderateScale(-32),
+    elevation: 5,
+    zIndex: 1,
   },
 });
 

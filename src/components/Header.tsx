@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   BackHandler,
   Image,
-  Platform,
   Text,
   TouchableOpacity,
   View,
@@ -13,8 +12,23 @@ import {Images} from '../asset';
 import {moderateScale} from '../Constants';
 
 const Header = () => {
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
+    return () => {
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        handleBackButtonClick,
+      );
+    };
+  }, []);
+
+  const handleBackButtonClick = () => {
+    handleExitPress();
+    return true;
+  };
+
   const handleExitPress = () => {
-    Platform.OS === 'android' ? BackHandler.exitApp() : RNExitApp.exitApp();
+    RNExitApp.exitApp();
   };
 
   return (
