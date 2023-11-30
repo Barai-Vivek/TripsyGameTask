@@ -11,7 +11,7 @@ import {
 import {Images} from '../asset';
 import {CardSelectionProps} from './types';
 
-const Table = ({onSelect, passedData}: CardSelectionProps) => {
+const Table = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
   return (
     <View style={styles.centerView}>
       <View style={styles.table}>
@@ -30,7 +30,11 @@ const Table = ({onSelect, passedData}: CardSelectionProps) => {
           </View>
         </View>
         <View style={styles.cardsDeck}>
-          <CardDeck onSelect={onSelect} passedData={passedData} />
+          <CardDeck
+            onSelect={onSelect}
+            passedData={passedData}
+            myTurn={myTurn}
+          />
         </View>
       </View>
     </View>

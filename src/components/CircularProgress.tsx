@@ -20,7 +20,7 @@ const CircularProgress = (props: {initialTime: any; seconds: any}) => {
           showProgressLabel={false}
           backgroundColor="#09362408"
           color={'yellow'}
-          progress={progress}
+          progress={10} //progress
           delay={0}
         />
       </View>

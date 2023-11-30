@@ -3,16 +3,19 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {moderateScale} from '../Constants';
 import {FooterProps} from './types';
 
-const Footer = ({showDiscardBtn, discardSelection}: FooterProps) => {
+const Footer = ({showDiscardBtn, discardSelection, myTurn}: FooterProps) => {
   const textToShow = showDiscardBtn ? 'Discard' : 'Sort';
 
   return (
     <View style={styles.bottomView}>
-      <TouchableOpacity
-        style={styles.btnView}
-        onPress={() => textToShow === 'Discard' && discardSelection('')}>
-        <Text style={styles.btnText}>{textToShow}</Text>
-      </TouchableOpacity>
+      {(myTurn && (
+        <TouchableOpacity
+          style={styles.btnView}
+          onPress={() => textToShow === 'Discard' && discardSelection('')}>
+          <Text style={styles.btnText}>{textToShow}</Text>
+        </TouchableOpacity>
+      )) ||
+        null}
     </View>
   );
 };
@@ -20,6 +23,7 @@ const Footer = ({showDiscardBtn, discardSelection}: FooterProps) => {
 const styles = StyleSheet.create({
   bottomView: {
     maxWidth: moderateScale(150),
+    minHeight: moderateScale(40),
     flexDirection: 'row',
     justifyContent: 'flex-end',
     paddingHorizontal: moderateScale(20),

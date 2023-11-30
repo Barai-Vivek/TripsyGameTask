@@ -33,7 +33,7 @@ const cardData: Card[] = [
   {id: '13', imageUrl: Images.icSpades2, title: 'Card 13'},
 ];
 
-const CardDeck = ({onSelect, passedData}: CardSelectionProps) => {
+const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
   const keyExtractor = (_: any, index: number) => {
     return `key${index}`;
   };
@@ -53,6 +53,7 @@ const CardDeck = ({onSelect, passedData}: CardSelectionProps) => {
     return (
       <TouchableOpacity
         style={cardStyle}
+        disabled={!myTurn}
         onPress={() => handleCardPress(item.id)}
         activeOpacity={0.7}>
         <Image source={item.imageUrl} style={styles.cardImage} />

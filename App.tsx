@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
   SafeAreaView,
@@ -13,7 +13,7 @@ import UserProfile from './src/components/UserProfile';
 import {screenHeight} from './src';
 
 const App = () => {
-  const initialTime = 60;
+  const initialTime = 5;
   const [selectedData, setSelectedData] = useState('');
   const [seconds, setSeconds] = useState(initialTime);
   const [myTimer, setMyTimer] = useState(true);
@@ -24,22 +24,25 @@ const App = () => {
     return (screenHeight * marginBottomPercentage) / 100;
   };
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setSeconds(prevSeconds =>
-  //       prevSeconds > 0 ? prevSeconds - 1 : initialTime,
-  //     );
-  //   }, 1000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds(prevSeconds =>
+        prevSeconds > 0 ? prevSeconds - 1 : initialTime,
+      );
+    }, 1000);
 
-  //   // Cleanup function to clear the interval when the component unmounts
-  //   return () => clearInterval(intervalId);
-  // }, []);
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []);
 
-  // useEffect(() => {
-  //   if (seconds === 0) {
-  //     setMyTimer(!myTimer);
-  //   }
-  // }, [seconds]);
+  useEffect(() => {
+    if (seconds === 0) {
+      // Reset the timer when it reaches 1 and myTimer is false
+      setMyTimer(!myTimer);
+      setSeconds(initialTime);
+      setSelectedData('');
+    }
+  }, [seconds, myTimer]);
 
   const handleSelection = (item?: string) => {
     // Update the state or perform any other action with the selected data
@@ -52,7 +55,11 @@ const App = () => {
       <ImageBackground source={Images.icBg} style={styles.backgroundImage}>
         <Header />
         <View style={styles.tableAdjustment}>
-          <Table onSelect={handleSelection} passedData={selectedData} />
+          <Table
+            onSelect={handleSelection}
+            passedData={selectedData}
+            myTurn={myTimer}
+          />
           <View style={styles.opponentProgressStyle}>
             {!myTimer && seconds > 0 ? (
               <CircularProgress initialTime={initialTime} seconds={seconds} />
@@ -72,6 +79,7 @@ const App = () => {
           <Footer
             showDiscardBtn={selectedData.length > 0}
             discardSelection={item => setSelectedData(item ?? '')}
+            myTurn={myTimer}
           />
         </View>
       </ImageBackground>
