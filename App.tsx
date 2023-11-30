@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   ImageBackground,
   SafeAreaView,
@@ -53,24 +53,20 @@ const App = () => {
         <Header />
         <View style={styles.tableAdjustment}>
           <Table onSelect={handleSelection} passedData={selectedData} />
-          {!myTimer && seconds > 0 ? (
-            <View style={styles.opponentProgressStyle}>
+          <View style={styles.opponentProgressStyle}>
+            {!myTimer && seconds > 0 ? (
               <CircularProgress initialTime={initialTime} seconds={seconds} />
-            </View>
-          ) : (
-            <View style={styles.opponentProgressStyle}>
+            ) : (
               <UserProfile />
-            </View>
-          )}
-          {myTimer ? (
-            <View style={styles.progressStyle}>
+            )}
+          </View>
+          <View style={styles.progressStyle}>
+            {myTimer ? (
               <CircularProgress initialTime={initialTime} seconds={seconds} />
-            </View>
-          ) : (
-            <View style={styles.progressStyle}>
+            ) : (
               <UserProfile />
-            </View>
-          )}
+            )}
+          </View>
         </View>
         <View style={[styles.footer, {marginBottom: calculateMarginBottom()}]}>
           <Footer
