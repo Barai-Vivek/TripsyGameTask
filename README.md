@@ -37,4 +37,11 @@ project-root/
 |-- node_modules/
 |-- package.json
 |-- [other project files]
+```
 
+- **Dependencies Used:**
+  - react-native-circular-progress-indicator
+  - react-native-exit-app
+  - react-native-reanimated
+  - react-native-svg
+  - react-native-svg-charts
