@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
   titleTextStyle: {
     fontSize: moderateScale(18),
     color: 'white',
-    marginStart: moderateScale(10),
     flex: 1,
     textAlign: 'center',
   },
