@@ -1,3 +1,5 @@
+![](tripsygame-task.gif)
+
 **Tasks covered:**
 
 - **Create a RN Rummy app:**
