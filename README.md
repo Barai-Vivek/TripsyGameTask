@@ -13,3 +13,28 @@
 
 - **User Interaction:**
   - Provide a "Leave" button to exit the game at any point in time.
+
+- **Structure:**
+```
+project-root/
+|-- src/
+|   |-- components/
+|   |   |-- CardDeck.tsx
+|   |   |-- CircularProgressBar.tsx
+|   |   |-- Footer.tsx
+|   |   |-- Header.tsx
+|   |   |-- Table.tsx
+|   |   |-- UserProfile.tsx
+|   |   |-- index.ts
+|   |   |-- types.ts
+|   |-- asset/
+|   |   |-- icons/
+|   |   |   |-- [icon files]
+|   |   |-- images.ts
+|   |   |-- index.ts
+|   |-- Constants.ts
+|   |-- index.ts
+|-- node_modules/
+|-- package.json
+|-- [other project files]
+
