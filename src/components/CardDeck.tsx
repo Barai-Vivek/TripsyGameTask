@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Platform,
   TouchableOpacity,
+  Animated,
+  LayoutAnimation,
 } from 'react-native';
 import {Images} from '../asset';
 import {CARD_WIDTH, moderateScale} from '../Constants';
@@ -39,6 +41,9 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
   };
 
   const handleCardPress = (cardId: string) => {
+    // Enable LayoutAnimation for a smooth transition
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
     onSelect(passedData === cardId ? undefined : cardId);
   };
 
@@ -50,19 +55,46 @@ const CardDeck = ({onSelect, passedData, myTurn}: CardSelectionProps) => {
       isLastCard && Platform.OS === 'android' ? styles.lastCardAndroid : null,
     ];
 
+    const scaleValue = new Animated.Value(1);
+    const animatedStyle = {
+      transform: [{scale: scaleValue}],
+    };
+
+    const handleCardPressIn = () => {
+      Animated.spring(scaleValue, {
+        toValue: 0.9,
+        useNativeDriver: true,
+        bounciness: 8, // Adjust bounciness as needed
+        speed: 8, // Adjust speed as needed (lower value for slower animation)
+      }).start();
+    };
+
+    const handleCardPressOut = () => {
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        useNativeDriver: true,
+        bounciness: 8, // Adjust bounciness as needed
+        speed: 8, // Adjust speed as needed (lower value for slower animation)
+      }).start();
+    };
+
     return (
       <TouchableOpacity
         style={cardStyle}
         disabled={!myTurn}
         onPress={() => handleCardPress(item.id)}
-        activeOpacity={0.7}>
-        <Image source={item.imageUrl} style={styles.cardImage} />
-        {(isSelected && (
-          <View style={styles.overlay}>
-            {/* add additional content for the overlay if needed */}
-          </View>
-        )) ||
-          null}
+        activeOpacity={0.7}
+        onPressIn={handleCardPressIn}
+        onPressOut={handleCardPressOut}>
+        <Animated.View style={animatedStyle}>
+          <Image source={item.imageUrl} style={styles.cardImage} />
+          {(isSelected && (
+            <View style={styles.overlay}>
+              {/* add additional content for the overlay if needed */}
+            </View>
+          )) ||
+            null}
+        </Animated.View>
       </TouchableOpacity>
     );
   };
