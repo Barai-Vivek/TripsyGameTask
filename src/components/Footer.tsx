@@ -30,14 +30,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   btnText: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
     color: 'black',
   },
   btnView: {
     borderRadius: moderateScale(20),
     backgroundColor: '#00FF00',
-    paddingVertical: moderateScale(6),
-    paddingHorizontal: moderateScale(18),
+    paddingVertical: moderateScale(4),
+    paddingHorizontal: moderateScale(16),
   },
 });
 
