@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import AnimatedProgressWheel from 'react-native-progress-wheel';
 import {moderateScale} from '../Constants';
+import CircularProgress from 'react-native-circular-progress-indicator';
 
-const CircularProgress = (props: {initialTime: any; seconds: any}) => {
+const CircularProgressBar = (props: {initialTime: any; seconds: any}) => {
   const initialTime = props.initialTime;
   const seconds = props.seconds;
 
@@ -13,15 +13,13 @@ const CircularProgress = (props: {initialTime: any; seconds: any}) => {
   return (
     <View style={styles.container}>
       <View style={styles.progressStyle}>
-        <AnimatedProgressWheel
-          size={moderateScale(46)}
-          width={moderateScale(6)}
-          rotation={'-90deg'}
-          showProgressLabel={false}
-          backgroundColor="#09362408"
-          color={'yellow'}
-          progress={10} //progress
-          delay={0}
+        <CircularProgress
+          radius={moderateScale(23)}
+          value={progress}
+          progressValueStyle={styles.progressValueText}
+          activeStrokeColor={seconds > 5 ? 'yellow' : 'tomato'}
+          inActiveStrokeOpacity={0.2}
+          duration={0}
         />
       </View>
       <Text style={styles.progressText}>{seconds}</Text>
@@ -45,6 +43,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(12),
   },
+  progressValueText: {
+    color: 'transparent',
+  },
 });
 
-export {CircularProgress};
+export {CircularProgressBar};

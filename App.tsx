@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {Footer, Header, Table} from './src/components';
-import {CircularProgress} from './src/components/CircularProgress';
+import {CircularProgressBar} from './src/components/CircularProgressBar';
 import {Images} from './src/asset';
 import UserProfile from './src/components/UserProfile';
 import {screenHeight} from './src';
@@ -62,14 +62,20 @@ const App = () => {
           />
           <View style={styles.opponentProgressStyle}>
             {!myTimer && seconds > 0 ? (
-              <CircularProgress initialTime={initialTime} seconds={seconds} />
+              <CircularProgressBar
+                initialTime={initialTime}
+                seconds={seconds}
+              />
             ) : (
               <UserProfile />
             )}
           </View>
           <View style={styles.progressStyle}>
             {myTimer ? (
-              <CircularProgress initialTime={initialTime} seconds={seconds} />
+              <CircularProgressBar
+                initialTime={initialTime}
+                seconds={seconds}
+              />
             ) : (
               <UserProfile />
             )}
