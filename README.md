@@ -47,3 +47,11 @@ project-root/
   - react-native-reanimated
   - react-native-svg
   - react-native-svg-charts
+
+- **Logic:**
+  - setInterval hook is used to maintain the timer logic.
+  - Once your user selects the card your user can also deselect the card. This is done with useState hook.
+  - Once you select any card sort button will be converted to Discard.
+  - Once the selection of card is done and timer is running you can deselect the same or you can click on Discard Button.
+  - If your timer is finished and you haven’t unselected the card the timer will move to opponent user and your selection will be discarded.
+  - When opponent timer is running you cannot select the card.
