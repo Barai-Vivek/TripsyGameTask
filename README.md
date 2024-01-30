@@ -2,7 +2,7 @@
 
 **Tasks covered:**
 
-- **Create a RN Rummy app:**
+- **Create a RN Rummy app UI:**
   - On launch, it should open the 2-player game table in landscape mode and show:
     - Hand cards opening up.
     - Closed and open deck.
